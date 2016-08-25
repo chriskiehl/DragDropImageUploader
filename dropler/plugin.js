@@ -107,7 +107,7 @@ CKEDITOR.plugins.add( 'dropler', {
 
         function uploadImgur(file) {
             var settings = editor.config.droplerConfig.settings;
-            return post('https://api.imgur.com/3/image', file, {'Authorization': settings.clientId});
+            return post('https://api.imgur.com/3/image', file, {'Authorization': 'Client-ID ' + settings.clientId});
         }
 
         function uploadS3(file) {
