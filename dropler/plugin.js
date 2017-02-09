@@ -14,7 +14,7 @@ CKEDITOR.plugins.add( 'dropler', {
                 init: function() {
                     var script = document.createElement('script');
                     script.async = 1;
-                    script.src = 'https://sdk.amazonaws.com/js/aws-sdk-2.1.26.min.js';
+                    script.src = 'https://sdk.amazonaws.com/js/aws-sdk-2.10.0.min.js';
                     document.body.appendChild(script);
                 }
             },
