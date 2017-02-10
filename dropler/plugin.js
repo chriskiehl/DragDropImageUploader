@@ -126,7 +126,9 @@ CKEDITOR.plugins.add( 'dropler', {
         };
 
         CKEDITOR.on('instanceReady', function() {
-            var iframeBase = document.querySelector('iframe').contentDocument.querySelector('html');
+            var container = editor.container;
+            var iframe = jQuery(container.$).find('iframe')[0];
+            var iframeBase = iframe.contentDocument.querySelector('html');
             var iframeBody = iframeBase.querySelector('body');
 
             iframeBody.ondragover = doNothing;
