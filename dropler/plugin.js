@@ -133,8 +133,7 @@ CKEDITOR.plugins.add( 'dropler', {
         };
 
         CKEDITOR.on('instanceReady', function() {
-            var _iframeBase = document.querySelector('iframe').contentDocument
-            var iframeBase = _iframeBase.documentElement || _iframeBase.querySelector('html');
+            var iframeBase = document.querySelector('iframe.cke_wysiwyg_frame').contentDocument.querySelector('html');
             var iframeBody = iframeBase.querySelector('body');
 
             iframeBody.ondragover = doNothing;
