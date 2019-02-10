@@ -59,10 +59,16 @@ CKEDITOR.plugins.add( 'dropler', {
         function doNothing(e) { }
         function orPopError(err) { alert(err.data.error) }
 
+        var internalDrag = false;
         function dropHandler(e) {
+            if(internalDrag)
+                return internalDrag = false;
             e.preventDefault();
             var file = e.dataTransfer.files[0];
             backend.upload(file).then(insertImage, orPopError);
+        }
+        function dragHandler(e) {
+            internalDrag = true;
         }
 
         function insertImage(href) {
@@ -86,6 +92,7 @@ CKEDITOR.plugins.add( 'dropler', {
             return new Promise(function(resolve, reject) {
                 var xhttp    = new XMLHttpRequest();
                 xhttp.open('POST', url);
+                xhttp.withCredentials = false;
                 addHeaders(xhttp, headers);
                 xhttp.onreadystatechange = function () {
                     if (xhttp.readyState === 4) {
@@ -126,11 +133,12 @@ CKEDITOR.plugins.add( 'dropler', {
         };
 
         CKEDITOR.on('instanceReady', function() {
-            var iframeBase = document.querySelector('iframe').contentDocument.querySelector('html');
+            var iframeBase = document.querySelector('iframe.cke_wysiwyg_frame').contentDocument.querySelector('html');
             var iframeBody = iframeBase.querySelector('body');
 
             iframeBody.ondragover = doNothing;
             iframeBody.ondrop = dropHandler;
+            iframeBody.ondrag = dragHandler;
 
             paddingToCenterBody = ((iframeBase.offsetWidth - iframeBody.offsetWidth) / 2) + 'px';
             iframeBase.style.height = '100%';
